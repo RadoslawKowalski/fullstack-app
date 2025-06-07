@@ -8,6 +8,7 @@ class PaSiRKowalskiRadoslawApplicationTests {
 
     @Test
     void contextLoads() {
+        // Context loads successfully if no exception is thrown
     }
 
 }

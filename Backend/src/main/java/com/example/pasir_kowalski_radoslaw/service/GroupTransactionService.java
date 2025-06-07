@@ -16,7 +16,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.lang.IllegalArgumentException;
 import java.time.LocalDateTime;
 
 @Service

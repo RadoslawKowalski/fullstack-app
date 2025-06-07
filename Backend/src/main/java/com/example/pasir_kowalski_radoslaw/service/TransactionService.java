@@ -16,6 +16,10 @@ import java.util.List;
 
 @Service
 public class TransactionService {
+
+    private static final String TRANSACTION_NOT_FOUND_MESSAGE = "Nie znaleziono transakcji o ID ";
+    private static final String LOGGED_IN_USER_NOT_FOUND_MESSAGE = "Nie znaleziono zalogowanego użytkownika";
+
     private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
 
@@ -27,7 +31,7 @@ public class TransactionService {
     public User getCurrentUser(){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("Nie znaleziono zalogowanego użytkownika"));
+                .orElseThrow(() -> new EntityNotFoundException(LOGGED_IN_USER_NOT_FOUND_MESSAGE));
     }
 
     public List<Transaction> getAllTransactions() {
@@ -36,11 +40,11 @@ public class TransactionService {
     }
     public Transaction getTransactionById(Long id) {
         return transactionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Nie znaleziono transakcji o ID " + id));
+                .orElseThrow(() -> new EntityNotFoundException(TRANSACTION_NOT_FOUND_MESSAGE + id));
     }
-    public Transaction UpdateTransaction(Long id, TransactionDTO transactionDTO) {
+    public Transaction updateTransaction(Long id, TransactionDTO transactionDTO) {
         Transaction transaction = transactionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Nie znaleziono transakcji o ID " + id));
+                .orElseThrow(() -> new EntityNotFoundException(TRANSACTION_NOT_FOUND_MESSAGE + id));
 
         if (!transaction.getUser().getEmail().equals(getCurrentUser().getEmail())) {
             throw new SecurityException("Brak dostępu do transakcji");
@@ -66,8 +70,8 @@ public class TransactionService {
     }
 
     public void deleteTransaction(Long id) {
-        Transaction transaction = transactionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Nie znaleziono transakcji o ID " + id));
+        transactionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(TRANSACTION_NOT_FOUND_MESSAGE + id));
         transactionRepository.deleteById(id);
     }
 

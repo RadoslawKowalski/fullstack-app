@@ -35,9 +35,9 @@ public class TransactionGraphQLController {
     @MutationMapping
     public Transaction updateTransaction(
             @Argument Long id,
-            @Valid @Argument TransactionDTO transactionDTO
+            @Argument TransactionDTO transactionDTO
     ) {
-        return transactionService.UpdateTransaction(id, transactionDTO);
+        return transactionService.updateTransaction(id, transactionDTO);
     }
 
     @QueryMapping

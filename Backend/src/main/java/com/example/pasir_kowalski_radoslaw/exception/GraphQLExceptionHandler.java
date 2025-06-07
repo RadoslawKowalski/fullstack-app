@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class GraphQLExceptionHandler implements DataFetcherExceptionResolver {
@@ -21,7 +20,7 @@ public class GraphQLExceptionHandler implements DataFetcherExceptionResolver {
                     .map(violation -> GraphqlErrorBuilder.newError(env)
                             .message("Błąd walidacji: " + violation.getMessage())
                             .build())
-                    .collect(Collectors.toList());
+                    .toList();
             return Mono.just(errors);
         }
         // Fallback - nieznany błąd

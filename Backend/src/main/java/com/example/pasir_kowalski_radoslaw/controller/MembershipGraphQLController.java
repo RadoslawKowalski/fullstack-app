@@ -68,7 +68,7 @@ public class MembershipGraphQLController {
                         group.getName(),
                         group.getOwner().getId()
                 ))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @MutationMapping
