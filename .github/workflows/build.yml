@@ -13,11 +13,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: 17
-          distribution: 'zulu' # Alternative distribution options are available.
+          java-version: 21
+          distribution: 'zulu'
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
@@ -33,4 +33,11 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=rkowalski_budgetapp
+          SONAR_HOST_URL: https://sonarcloud.io
+        run: |
+          mvn clean verify
+          mvn sonar:sonar \
+            -Dsonar.projectKey=rkowalski_budgetapp \
+            -Dsonar.organization=rkowalski \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
