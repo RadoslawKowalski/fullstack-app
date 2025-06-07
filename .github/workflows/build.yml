@@ -35,6 +35,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonarcloud.io
         run: |
+          cd Backend
           mvn clean verify
           mvn sonar:sonar \
             -Dsonar.projectKey=rkowalski_budgetapp \
