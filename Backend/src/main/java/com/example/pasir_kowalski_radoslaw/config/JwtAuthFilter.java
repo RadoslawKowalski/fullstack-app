@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtAuthFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthFilter.class);
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
@@ -50,7 +50,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     }
                 }
             } catch (Exception ex) {
-                logger.error("Error during JWT validation: {}", ex.getMessage(), ex);
+                LOGGER.error("Error during JWT validation: {}", ex.getMessage(), ex);
             }
         }
 
