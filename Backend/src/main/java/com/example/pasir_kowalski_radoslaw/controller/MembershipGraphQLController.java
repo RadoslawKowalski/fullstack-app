@@ -62,7 +62,7 @@ public class MembershipGraphQLController {
     @QueryMapping
     public List<GroupResponseDTO> myGroups() {
         User user = membershipService.getCurrentUser();
-        return groupRepository.findByMemberships_User(user).stream()
+        return groupRepository.findGroupsByUser(user).stream()
                 .map(group -> new GroupResponseDTO(
                         group.getId(),
                         group.getName(),
